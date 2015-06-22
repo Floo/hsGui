@@ -1,0 +1,72 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>resource/Close.png</file>
+        <file>resource/Licht.png</file>
+        <file>resource/Tools.png</file>
+        <file>resource/Giessen.png</file>
+        <file>resource/wetter.png</file>
+        <file>resource/Lueftung.png</file>
+        <file>resource/Home.png</file>
+        <file>resource/Einstellungen.png</file>
+        <file>resource/Jalousie.png</file>
+        <file>resource/e6.png</file>
+        <file>resource/connectedE6.png</file>
+        <file>resource/connectedGUI.png</file>
+    </qresource>
+    <qresource prefix="/new/jalousie">
+        <file>resource/Auf.png</file>
+        <file>resource/ImpAb.png</file>
+        <file>resource/Stop.png</file>
+        <file>resource/Ab.png</file>
+        <file>resource/ImpAuf.png</file>
+        <file>resource/Sonne.png</file>
+    </qresource>
+    <qresource prefix="/wetter.com/gif">
+        <file>resource/wetter.com/d_0_b.gif</file>
+        <file>resource/wetter.com/d_1_b.gif</file>
+        <file>resource/wetter.com/d_2_b.gif</file>
+        <file>resource/wetter.com/d_3_b.gif</file>
+        <file>resource/wetter.com/d_4_b.gif</file>
+        <file>resource/wetter.com/d_5_b.gif</file>
+        <file>resource/wetter.com/d_6_b.gif</file>
+        <file>resource/wetter.com/d_7_b.gif</file>
+        <file>resource/wetter.com/d_8_b.gif</file>
+        <file>resource/wetter.com/d_9_b.gif</file>
+        <file>resource/wetter.com/n_0_b.gif</file>
+        <file>resource/wetter.com/n_1_b.gif</file>
+        <file>resource/wetter.com/n_2_b.gif</file>
+        <file>resource/wetter.com/n_3_b.gif</file>
+        <file>resource/wetter.com/n_4_b.gif</file>
+        <file>resource/wetter.com/n_5_b.gif</file>
+        <file>resource/wetter.com/n_6_b.gif</file>
+        <file>resource/wetter.com/n_7_b.gif</file>
+        <file>resource/wetter.com/n_8_b.gif</file>
+        <file>resource/wetter.com/n_9_b.gif</file>
+    </qresource>
+    <qresource prefix="/wetter.com/png">
+        <file>resource/wetter.com/d_0_b.png</file>
+        <file>resource/wetter.com/d_1_b.png</file>
+        <file>resource/wetter.com/d_2_b.png</file>
+        <file>resource/wetter.com/d_3_b.png</file>
+        <file>resource/wetter.com/d_4_b.png</file>
+        <file>resource/wetter.com/d_5_b.png</file>
+        <file>resource/wetter.com/d_6_b.png</file>
+        <file>resource/wetter.com/d_7_b.png</file>
+        <file>resource/wetter.com/d_8_b.png</file>
+        <file>resource/wetter.com/d_9_b.png</file>
+        <file>resource/wetter.com/n_0_b.png</file>
+        <file>resource/wetter.com/n_1_b.png</file>
+        <file>resource/wetter.com/n_2_b.png</file>
+        <file>resource/wetter.com/n_3_b.png</file>
+        <file>resource/wetter.com/n_4_b.png</file>
+        <file>resource/wetter.com/n_5_b.png</file>
+        <file>resource/wetter.com/n_6_b.png</file>
+        <file>resource/wetter.com/n_7_b.png</file>
+        <file>resource/wetter.com/n_8_b.png</file>
+        <file>resource/wetter.com/n_9_b.png</file>
+    </qresource>
+    <qresource prefix="/new/licht">
+        <file>resource/Licht_Aus.png</file>
+        <file>resource/Licht_An.png</file>
+    </qresource>
+</RCC>
