@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>5</number>
     </property>
     <property name="iconSize">
      <size>
@@ -4842,9 +4842,9 @@ licht</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>450</y>
+        <y>439</y>
         <width>621</width>
-        <height>80</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -4856,8 +4856,8 @@ licht</string>
       <widget class="QLabel" name="label_AlbumArt">
        <property name="geometry">
         <rect>
-         <x>550</x>
-         <y>0</y>
+         <x>540</x>
+         <y>10</y>
          <width>71</width>
          <height>71</height>
         </rect>
@@ -4876,7 +4876,7 @@ licht</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>40</y>
          <width>41</width>
          <height>41</height>
         </rect>
@@ -4895,9 +4895,9 @@ licht</string>
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>10</y>
+         <y>13</y>
          <width>461</width>
-         <height>24</height>
+         <height>21</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -4935,12 +4935,15 @@ licht</string>
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>30</y>
+         <y>34</y>
          <width>461</width>
-         <height>24</height>
+         <height>25</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="topMargin">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_ArtistLabel">
           <property name="maximumSize">
@@ -4975,9 +4978,9 @@ licht</string>
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>50</y>
+         <y>60</y>
          <width>461</width>
-         <height>24</height>
+         <height>21</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
