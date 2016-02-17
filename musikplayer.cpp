@@ -353,7 +353,8 @@ void MusikPlayer::sl_cover_fetch_done(QNetworkReply* reply)
     }
 
     QPixmap pixmap;
-    pixmap.convertFromImage(image);
+    //pixmap.convertFromImage(image);
+    pixmap = QPixmap::fromImage(image);
     ui->label_AlbumArt->setPixmap(pixmap);
 //    ui->albumCover->setIcon(QIcon(pixmap));
 //    ui->albumCover->repaint();
