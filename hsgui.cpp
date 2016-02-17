@@ -1,5 +1,6 @@
 #include "hsgui.h"
 #include "ui_hsgui.h"
+#include "musikplayer.h"
 
 hsGui::hsGui(QString *ipTcpConnection, int portTcpConnection, bool fullscreen, bool mousezeiger, QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,7 @@ hsGui::hsGui(QString *ipTcpConnection, int portTcpConnection, bool fullscreen, b
     ipTCPConnection = ipTcpConnection;
     portTCPConnection = portTcpConnection;
     ui->setupUi(this);
+    musikplayer = new MusikPlayer(ui, this);
 
     networkAccess_forcast = new QNetworkAccessManager(this);
     networkAccess_regenradar = new QNetworkAccessManager(this);
@@ -224,7 +226,7 @@ void hsGui::sendOrient()
     }else{
         sendString = QString("cmd=%1 value=AUS\n").arg(CMD_FLOOR);
     }
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::setOrientIcon()
@@ -245,7 +247,7 @@ void hsGui::sendJal()
     QString value = toolButton->objectName();
     value.remove(0, 11);
     QString sendString = QString("cmd=%1 value=%2\n").arg(CMD_JAL).arg(value);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::sendLicht()
@@ -259,7 +261,7 @@ void hsGui::sendLicht()
     if(name == "AN") {cmd = FS20_AN;}
     if(name == "AUS") {cmd = FS20_AUS;}
     QString sendString = QString("cmd=%1 value=%2:%3\n").arg(CMD_LICHT).arg(lichtDevices[index]).arg(cmd);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::sendLichtDimmPressed()
@@ -273,7 +275,7 @@ void hsGui::sendLichtDimmPressed()
     if(name == "DOWN") {cmd = DIMM_DOWN_START;}
     if(name == "UP") {cmd = DIMM_UP_START;}
     QString sendString = QString("cmd=%1 value=%2:%3\n").arg(CMD_DIMM).arg(lichtDevices[index]).arg(cmd);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::sendLichtDimmReleased()
@@ -287,7 +289,7 @@ void hsGui::sendLichtDimmReleased()
     if(name == "DOWN") {cmd = DIMM_DOWN_STOP;}
     if(name == "UP") {cmd = DIMM_UP_STOP;}
     QString sendString = QString("cmd=%1 value=%2:%3\n").arg(CMD_DIMM).arg(lichtDevices[index]).arg(cmd);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::sendSzene()
@@ -298,7 +300,7 @@ void hsGui::sendSzene()
     name.remove(0, 17);
     index = name.toInt();
     QString sendString = QString("cmd=%1 value=%2\n").arg(CMD_SZENE).arg(szenenNamen[index]);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::initLicht()
@@ -380,7 +382,7 @@ void hsGui::updateLicht()
     QStringList deviceList, sceneList;
     dictionary *hslight;
 
-    hslightByteArray = hslightFile->fileName().toAscii();
+    hslightByteArray = hslightFile->fileName().toLatin1();
     hslight = iniparser_load(hslightByteArray.data());
     devices = QString(iniparser_getstring(hslight, "system:devices", NULL));
     scenes = QString(iniparser_getstring(hslight, "system:scenes", NULL));
@@ -390,7 +392,7 @@ void hsGui::updateLicht()
     for(i = 0; i < deviceList.size(); i++)
     {
         lichtDevices[i] = deviceList[i].trimmed();
-        section = QByteArray(QString("deviceName:%1").arg(deviceList.at(i).trimmed()).toAscii());
+        section = QByteArray(QString("deviceName:%1").arg(deviceList.at(i).trimmed()).toLatin1());
         lichtDeviceNamen[i] = QString(iniparser_getstring(hslight, section.data(), (char*)"..."));
     }
 
@@ -592,12 +594,12 @@ void hsGui::showAllgemeineEinstellungen()
     ae->show();
 }
 
-void hsGui::closeJalEinstellungen(int value)
+void hsGui::closeJalEinstellungen(int)
 {
     ui->centralWidget->setDisabled(false);
 }
 
-void hsGui::closeLichtEinstellungen(int value)
+void hsGui::closeLichtEinstellungen(int)
 {
     ui->centralWidget->setDisabled(false);
 }
@@ -609,12 +611,12 @@ void hsGui::showSchliessen()
     sch->show();
 }
 
-void hsGui::closeSchliessen(int value)
+void hsGui::closeSchliessen(int)
 {
     ui->centralWidget->setDisabled(false);
 }
 
-void hsGui::closeAllgemeineEinstellungen(int value)
+void hsGui::closeAllgemeineEinstellungen(int)
 {
     ui->centralWidget->setDisabled(false);
 }
@@ -753,7 +755,7 @@ void hsGui::readFromTCPServer()
 void hsGui::setUrlRegenRadar()
 {
     dictionary *hsconf;
-    QByteArray hsconfByteArray = hsconfFile->fileName().toAscii();
+    QByteArray hsconfByteArray = hsconfFile->fileName().toLatin1();
     QString strUrlRegenRadar_old = strUrlRegenRadar;
     hsconf = iniparser_load(hsconfByteArray.data());
     strUrlRegenRadar = QString(iniparser_getstring(hsconf, "hsgui:url_regenradar", NULL));
@@ -767,13 +769,13 @@ void hsGui::setUrlRegenRadar()
 void hsGui::requestConfigFile(int value)
 {
     QString sendString = QString("cmd=%1 value=%2\n").arg(CMD_GET_CONFIG).arg(value);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::setSharedMemoryReceiveOnServer()
 {
     QString sendString = QString("cmd=%1 value=\n").arg(CMD_GET_HSINFO);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::connectedTCPServer()
@@ -795,7 +797,7 @@ void hsGui::pushButton_Terrasse()
     {
         sendString = QString("cmd=%1 value=VENTIL_%2_STOP\n").arg(CMD_WATER).arg(name.right(1));
     }
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void hsGui::pushButton_Terrasse_Timer()
@@ -812,7 +814,7 @@ void hsGui::pushButton_Terrasse_Timer()
         dauer = ui->spinBox_DauerTimer_2->value();
     }
     QString sendString = QString("cmd=%1 value=VENTIL_%2_TIMER:%3\n").arg(CMD_WATER).arg(name.right(1)).arg(dauer);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 
@@ -855,7 +857,7 @@ void hsGui::on_checkBox_AutoWater_2_toggled(bool checked)
 void hsGui::updateTabGiessen()
 {
     dictionary *hsconf;
-    QByteArray hsconfByteArray = hsconfFile->fileName().toAscii();
+    QByteArray hsconfByteArray = hsconfFile->fileName().toLatin1();
     hsconf = iniparser_load(hsconfByteArray.data());
     for(int i = 0; i < 6; i++)
     {
@@ -932,7 +934,7 @@ void hsGui::on_pushButton_WaterOK_clicked()
             {
                 QString sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                            .arg(foo->isChecked()).arg(confWidgetsTerrasse[i].section + ":" + confWidgetsTerrasse[i].key);
-                tcpClient->write(sendString.toAscii());
+                tcpClient->write(sendString.toLatin1());
                 confWidgetsTerrasse[i].boolValue = foo->isChecked();
             }
         }else if(confWidgetsTerrasse[i].isInt)
@@ -942,7 +944,7 @@ void hsGui::on_pushButton_WaterOK_clicked()
             {
                 QString sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                            .arg(foo->value()).arg(confWidgetsTerrasse[i].section + ":" + confWidgetsTerrasse[i].key);
-                tcpClient->write(sendString.toAscii());
+                tcpClient->write(sendString.toLatin1());
                 confWidgetsTerrasse[i].intValue = foo->value();
             }
         }else if(confWidgetsTerrasse[i].isTime)
@@ -952,7 +954,7 @@ void hsGui::on_pushButton_WaterOK_clicked()
             {
                 QString sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                                      .arg(foo->time().toString("hh:mm")).arg(confWidgetsTerrasse[i].section + ":" + confWidgetsTerrasse[i].key);
-                tcpClient->write(sendString.toAscii());
+                tcpClient->write(sendString.toLatin1());
                 confWidgetsTerrasse->strValue = foo->time().toString("hh:mm");
             }
         }
@@ -984,7 +986,7 @@ void hsGui::on_pushButton_WaterReset_clicked()
 void hsGui::updateTabLueftung()
 {
     dictionary *hsconf;
-    QByteArray hsconfByteArray = hsconfFile->fileName().toAscii();
+    QByteArray hsconfByteArray = hsconfFile->fileName().toLatin1();
     hsconf = iniparser_load(hsconfByteArray.data());
     confLueftungTab.bHWRTemp = iniparser_getboolean(hsconf, QString("hwr:auto").toLatin1(),0);
     confLueftungTab.bHWRDauer = iniparser_getboolean(hsconf, QString("hwr:permanent").toLatin1(),0);
@@ -1014,28 +1016,28 @@ void hsGui::on_pushButton_AbluftOK_clicked()
         confLueftungTab.iHWRSchelle = ui->spinBox_SchaltschwelleHWR->value();
         sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                          .arg(confLueftungTab.iHWRSchelle).arg(QString("hwr:threshold"));
-        tcpClient->write(sendString.toAscii());
+        tcpClient->write(sendString.toLatin1());
     }
     if(confLueftungTab.bHWRDauer != ui->radioButton_AbluftHWRDauer->isChecked())
     {
         confLueftungTab.bHWRDauer = ui->radioButton_AbluftHWRDauer->isChecked();
         sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                          .arg(confLueftungTab.bHWRDauer).arg(QString("hwr:permanent"));
-        tcpClient->write(sendString.toAscii());
+        tcpClient->write(sendString.toLatin1());
     }
     if(confLueftungTab.bHWRTemp != ui->radioButton_AbluftHWRTemp->isChecked())
     {
         confLueftungTab.bHWRTemp = ui->radioButton_AbluftHWRTemp->isChecked();
         sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                          .arg(confLueftungTab.bHWRTemp).arg(QString("hwr:auto"));
-        tcpClient->write(sendString.toAscii());
+        tcpClient->write(sendString.toLatin1());
     }
     if(confLueftungTab.bACLow != ui->radioButton_ZentrAbluftAn->isChecked())
     {
         confLueftungTab.bACLow = ui->radioButton_ZentrAbluftAn->isChecked();
         sendString = QString("cmd=%1 value=%2key=%3\n").arg(CMD_SET_CONFIG)
                          .arg(confLueftungTab.bACLow).arg(QString("a/c:low"));
-        tcpClient->write(sendString.toAscii());
+        tcpClient->write(sendString.toLatin1());
     }
 }
 
@@ -1077,7 +1079,7 @@ void hsGui::on_pushButtonWetterPlot_clicked()
     postData.append(QString("&intZeitraum=%1").arg(intZeitraum));
     postData.append("&boolGUI=1");
     QNetworkRequest *reqPlotWetter = new QNetworkRequest(urlPlotWetter);
-    reqPlotWetter->setRawHeader("Authorization", "Basic " + QByteArray(QString("%1:%2").arg("florian").arg("vegas").toAscii()).toBase64());
+    reqPlotWetter->setRawHeader("Authorization", "Basic " + QByteArray(QString("%1:%2").arg("florian").arg("vegas").toLatin1()).toBase64());
     networkAccess_wetterplot->post(*reqPlotWetter, postData);
 }
 

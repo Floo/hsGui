@@ -91,7 +91,7 @@ void JalousieEinstellungen::initConfWidgets()
 void JalousieEinstellungen::updateJalEinstellungen()
 {
     dictionary *hsconf;
-    QByteArray hsconfByteArray = hsconfFile->fileName().toAscii();
+    QByteArray hsconfByteArray = hsconfFile->fileName().toLatin1();
     hsconf = iniparser_load(hsconfByteArray.data());
     ui->spinBox_Auf_Offset->setValue(0);
     ui->spinBox_Zu_Offset->setValue(0);
@@ -162,7 +162,7 @@ void JalousieEinstellungen::on_pushButton_JalOK_clicked()
             if(foo->isChecked() != confWidgetsJal[i].boolValue)
             {
                 sendString = QString(sendString).arg(foo->isChecked()).arg(confWidgetsJal[i].section + ":" + confWidgetsJal[i].key);
-                tcpClient->write(sendString.toAscii());
+                tcpClient->write(sendString.toLatin1());
                 confWidgetsJal[i].boolValue = foo->isChecked();
             }
         }else if(confWidgetsJal[i].isTime)
@@ -208,7 +208,7 @@ void JalousieEinstellungen::on_pushButton_JalOK_clicked()
             {
                 confWidgetsJal[i].strValue = tmpString;
                 sendString = QString(sendString).arg(tmpString).arg(confWidgetsJal[i].section + ":" + confWidgetsJal[i].key);
-                tcpClient->write(sendString.toAscii());
+                tcpClient->write(sendString.toLatin1());
             }
         }
     }
@@ -216,13 +216,13 @@ void JalousieEinstellungen::on_pushButton_JalOK_clicked()
 }
 
 
-void JalousieEinstellungen::on_radioButton_Zu_Uhrzeit_toggled(bool checked)
+void JalousieEinstellungen::on_radioButton_Zu_Uhrzeit_toggled(bool)
 {
     ui->frame_Zu_Uhrzeit->setEnabled(ui->radioButton_Zu_Uhrzeit->isChecked());
     ui->frame_Zu_Offset->setEnabled(!ui->radioButton_Zu_Uhrzeit->isChecked());
 }
 
-void JalousieEinstellungen::on_radioButton_Auf_Uhrzeit_toggled(bool checked)
+void JalousieEinstellungen::on_radioButton_Auf_Uhrzeit_toggled(bool)
 {
     ui->frame_Auf_Uhrzeit->setEnabled(ui->radioButton_Auf_Uhrzeit->isChecked());
     ui->frame_Auf_Offset->setEnabled(!ui->radioButton_Auf_Uhrzeit->isChecked());

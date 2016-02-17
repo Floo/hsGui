@@ -35,7 +35,7 @@ void LichtEinstellungen::sendTimerReset()
     name.remove(0, 26);
     index = name.left(1).toInt();
     QString sendString = QString("cmd=%1 value=%2\n").arg(CMD_LICHT_RESET_TIMER).arg(lichtDevices->at(index));
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void LichtEinstellungen::initLichtEinstellungen()

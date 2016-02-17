@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     for(int i = 1; i < a.arguments().count(); i++)
     {
         QString arg(a.arguments().at(i));
-        switch(arg[1].toAscii())
+        switch(arg[1].toLatin1())
         {
         case 104: //h
             //Hilfe ausgeben

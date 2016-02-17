@@ -52,9 +52,9 @@ void Schliessen::lichtOrientSzeneAus()
 {
     connect(tcpClient, SIGNAL(bytesWritten(qint64)), this, SLOT(closeApp(qint64)));
     QString sendString = QString("cmd=%1 value=Aus\n").arg(CMD_SZENE);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
     sendString = QString("cmd=%1 value=AUS\n").arg(CMD_FLOOR);
-    tcpClient->write(sendString.toAscii());
+    tcpClient->write(sendString.toLatin1());
 }
 
 void Schliessen::closeApp(qint64)

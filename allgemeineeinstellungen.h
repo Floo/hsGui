@@ -5,6 +5,7 @@
 #include <QtCore>
 #include <QProcess>
 #include <QtGui>
+#include <QScrollBar>
 
 namespace Ui {
     class AllgemeineEinstellungen;

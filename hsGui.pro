@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network webkit
+QT       += core gui network webkit widgets
 
 
 TARGET = hsGui
@@ -16,7 +16,9 @@ SOURCES += main.cpp\
     jalousieeinstellungen.cpp \
     lichteinstellungen.cpp \
     schliessen.cpp \
-    allgemeineeinstellungen.cpp
+    allgemeineeinstellungen.cpp \
+    musikplayer.cpp \
+    mpnetworkthread.cpp
 
 HEADERS  += hsgui.h \
     jalousieeinstellungen.h \
@@ -25,7 +27,9 @@ HEADERS  += hsgui.h \
     iniparser.h \
     hsguiglobal.h \
     schliessen.h \
-    allgemeineeinstellungen.h
+    allgemeineeinstellungen.h \
+    musikplayer.h \
+    mpnetworkthread.h
 
 FORMS    += hsgui.ui \
     jalousieeinstellungen.ui \

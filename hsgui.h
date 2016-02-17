@@ -23,6 +23,8 @@ namespace Ui {
     class hsGui;
 }
 
+class MusikPlayer;
+
 
 class hsGui : public QMainWindow
 {
@@ -68,6 +70,7 @@ private:
     QMovie *regenRadarGif;
     QPixmap *wetterPlotPNG;
     QString strUrlRegenRadar;
+    MusikPlayer *musikplayer;
 
     void initTCPConnection();
     void xmlReadForecast(QXmlStreamReader *xmlReader);

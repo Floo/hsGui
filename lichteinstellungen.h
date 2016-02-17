@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QtGui>
 #include <QtNetwork/QTcpSocket>
+#include <QToolButton>
 
 #include "hsguinetcmd.h"
 

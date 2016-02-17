@@ -12,6 +12,7 @@
         <file>resource/e6.png</file>
         <file>resource/connectedE6.png</file>
         <file>resource/connectedGUI.png</file>
+        <file>resource/Musik.png</file>
     </qresource>
     <qresource prefix="/new/jalousie">
         <file>resource/Auf.png</file>
@@ -68,5 +69,11 @@
     <qresource prefix="/new/licht">
         <file>resource/Licht_Aus.png</file>
         <file>resource/Licht_An.png</file>
+    </qresource>
+    <qresource prefix="/new/musikplayer">
+        <file>resource/musikplayer/logo.png</file>
+        <file>resource/musikplayer/pause.png</file>
+        <file>resource/musikplayer/play.png</file>
+        <file>resource/musikplayer/stop.png</file>
     </qresource>
 </RCC>
