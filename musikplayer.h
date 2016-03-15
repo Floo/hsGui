@@ -15,6 +15,7 @@
 #include <QNetworkReply>
 #include <QImageReader>
 #include <QUrl>
+#include <QTimer>
 
 namespace Ui {
     class hsGui;
@@ -43,6 +44,9 @@ private slots:
     void btnPlay_clicked();
     void btnStop_clicked();
     void sl_cover_fetch_done(QNetworkReply* reply);
+    void sendVolUp();
+    void sendVolDown();
+    void sendMute();
 
 private:
     Ui::hsGui *ui;
@@ -61,6 +65,8 @@ private:
     void initConnections();
     void fetch_cover(const QString& URI);
     void no_cover_available();
+    QTimer *m_volUpTimer;
+    QTimer *m_volDownTimer;
 };
 
 #endif // MUSIKPLAYER_H

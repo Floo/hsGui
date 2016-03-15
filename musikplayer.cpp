@@ -18,6 +18,13 @@ MusikPlayer::MusikPlayer(Ui::hsGui *_ui, QObject *parent) : QObject(parent), ui(
     connect(m_netmanager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(sl_cover_fetch_done(QNetworkReply*)));
 
+    m_volUpTimer = new QTimer;
+    m_volUpTimer->setInterval(150);
+    m_volDownTimer = new QTimer;
+    m_volDownTimer->setInterval(150);
+    connect(m_volUpTimer, &QTimer::timeout, this, &MusikPlayer::sendVolUp);
+    connect(m_volDownTimer, &QTimer::timeout, this, &MusikPlayer::sendVolDown);
+
     ui->label_ErrorMP->setVisible(false);
     ui->label_ErrorMP->setStyleSheet("QLabel { color : red; }");
 
@@ -60,6 +67,11 @@ void MusikPlayer::initConnections()
     }
     connect(ui->toolButton_Play, SIGNAL(clicked()), this, SLOT(btnPlay_clicked()));
     connect(ui->toolButton_Stop, SIGNAL(clicked()), this, SLOT(btnStop_clicked()));
+    connect(ui->btnVolUp, SIGNAL(pressed()), m_volUpTimer, SLOT(start()));
+    connect(ui->btnVolDown, SIGNAL(pressed()), m_volDownTimer, SLOT(start()));
+    connect(ui->btnVolUp, SIGNAL(released()), m_volUpTimer, SLOT(stop()));
+    connect(ui->btnVolDown, SIGNAL(released()), m_volDownTimer, SLOT(stop()));
+    connect(ui->btnMute, SIGNAL(clicked()), this, SLOT(sendMute()));
 }
 
 void MusikPlayer::btnRadioList_clicked()
@@ -364,4 +376,19 @@ void MusikPlayer::sl_cover_fetch_done(QNetworkReply* reply)
 void MusikPlayer::no_cover_available()
 {
     ui->label_AlbumArt->setPixmap(QPixmap(QString(":/new/musikplayer/resource/musikplayer/logo.png")));
+}
+
+void MusikPlayer::sendVolUp()
+{
+    networkthread.sendCommand(m_host, m_port, "set pm8000 vol+");
+}
+
+void MusikPlayer::sendVolDown()
+{
+    networkthread.sendCommand(m_host, m_port, "set pm8000 vol-");
+}
+
+void MusikPlayer::sendMute()
+{
+    networkthread.sendCommand(m_host, m_port, "set pm8000 mute");
 }
