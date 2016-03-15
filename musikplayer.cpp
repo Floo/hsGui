@@ -22,8 +22,8 @@ MusikPlayer::MusikPlayer(Ui::hsGui *_ui, QObject *parent) : QObject(parent), ui(
     m_volUpTimer->setInterval(150);
     m_volDownTimer = new QTimer;
     m_volDownTimer->setInterval(150);
-    connect(m_volUpTimer, &QTimer::timeout, this, &MusikPlayer::sendVolUp);
-    connect(m_volDownTimer, &QTimer::timeout, this, &MusikPlayer::sendVolDown);
+    connect(m_volUpTimer, SIGNAL(timeout()), this, SLOT(sendVolUp()));
+    connect(m_volDownTimer, SIGNAL(timeout()), this, SLOT(sendVolDown()));
 
     ui->label_ErrorMP->setVisible(false);
     ui->label_ErrorMP->setStyleSheet("QLabel { color : red; }");
