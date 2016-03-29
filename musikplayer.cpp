@@ -149,7 +149,11 @@ void MusikPlayer::setModeButtons()
     ui->toolButton_ModeRadio->setStyleSheet("font-weight: normal");
     ui->toolButton_ModeUPNP->setStyleSheet("font-weight: normal");
     ui->toolButton_ModeSPDIF->setStyleSheet("font-weight: normal");
-    ui->toolButton_ModeSPDIF->setText(QString("Input %1").arg(m_Input + 1));
+
+    if (m_Input < inputList.size())
+        ui->toolButton_ModeSPDIF->setText(QString("Input %1 (%2)").arg(m_Input + 1).arg(inputList.at(m_Input)));
+    else
+        ui->toolButton_ModeSPDIF->setText(QString("Input %1").arg(m_Input + 1));
 
     switch (m_GUIMode) {
     case 0:
@@ -292,6 +296,8 @@ void MusikPlayer::displayReply(const QString &message)
         } else {
             no_cover_available();
         }
+        if (!m_initialized)
+            getInputList();
         m_initialized = true;
     }
     else if (message.contains("[RaspiDAC]"))
@@ -299,8 +305,17 @@ void MusikPlayer::displayReply(const QString &message)
         QString list = message;
         applyStatus(list, false);
     }
+    else if (message.contains("[inputList]"))
+    {
+        QString list = message;
+        list.remove("[inputList]");
+        inputList = list.split(";");
+        setModeButtons();
+    }
     if (!m_initialized)
+    {
         getMetaData();
+    }
 }
 
 void MusikPlayer::loadRadioList()
@@ -316,6 +331,11 @@ void MusikPlayer::getMetaData()
 void MusikPlayer::getStatus()
 {
     networkthread.sendCommand(m_host, m_port, "get status");
+}
+
+void MusikPlayer::getInputList()
+{
+    networkthread.sendCommand(m_host, m_port, "get inputlist");
 }
 
 void MusikPlayer::fetch_cover(const QString& URI)

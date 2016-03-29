@@ -38,6 +38,7 @@ private slots:
     void displayReply(const QString &message);
     void loadRadioList();
     void getMetaData();
+    void getInputList();
     void getStatus();
     void btnRadioList_clicked();
     void btnMode_clicked();
@@ -53,6 +54,7 @@ private:
     MpNetworkThread networkthread;
     QUdpSocket *udpsocket;
     QNetworkAccessManager *m_netmanager;
+    QStringList inputList;
 
     void applyStatus(QString& str, bool getMD = true);
     int m_port;
